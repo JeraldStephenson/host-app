@@ -11,11 +11,13 @@ const {
   GraphQLNonNull,
 } = require('graphql');
 
+const { directoryPath, defaultFilePath } = require('grapherrql');
 const {
   grapherrql,
   eventsHandler,
   serveGrapherrql,
-} = require('../../functions/index');
+} = require('grapherrql-express');
+
 const PORT = '3001';
 const app = express();
 
@@ -153,10 +155,9 @@ app.use('/graphql', grapherrql(graphqlHTTP, schema));
 //Setup SSE (Server-Sent-Events) endpoint. GraphERRQL will setup conn to this upon initial render, connection will persist.
 app.get('/events', eventsHandler);
 //Referencing local files to serve to GraphERRQL. Deployment will see Host Apps referencing node-modules dynamically rather than looking for these files locally.
-const directoryPath = '../../build';
 app.use(express.static(directoryPath));
 //serve up grapherrql GUI & trigger SSE connection when opening browser to /grapherrql endpoint
-const defaultFilePath = '../../build/index.html';
+
 app.get('/grapherrql', serveGrapherrql(PORT, defaultFilePath));
 
 app.listen(PORT, () => console.log(`Server Running on ${PORT}`));

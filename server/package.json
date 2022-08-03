@@ -15,6 +15,8 @@
     "express": "^4.18.1",
     "express-graphql": "^0.12.0",
     "fs": "^0.0.1-security",
+    "grapherrql": "^0.1.4",
+    "grapherrql-express": "^0.0.3",
     "graphql": "^15.8.0",
     "nodemon": "^2.0.19"
   }
